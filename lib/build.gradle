@@ -38,6 +38,8 @@ task generateJavadoc(type: Javadoc) {
     options.memberLevel = JavadocMemberLevel.PUBLIC
 
     setTitle 'IBM MobileFirst Platform Android Analytics Specification API'
+
+    failOnError = false
 }
 
 task androidJavadocsJar(type: Jar, dependsOn: generateJavadoc) {
@@ -50,7 +52,7 @@ task androidSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
 }
 
-task androidLibraryJar(type: Jar) {
+task androidLibraryJar(type: Jar, dependsOn: assembleRelease) {
     from 'build/intermediates/classes/release/'
     archiveName project.name + '.jar'
     exclude '**/BuildConfig.*'
@@ -88,7 +90,7 @@ def isReleaseBuild() {
 }
 
 def getVersion() {
-    return '1.0.0-SNAPSHOT'
+    return '1.0.1-SNAPSHOT'
 }
 
 uploadArchives {
