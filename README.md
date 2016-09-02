@@ -1,7 +1,15 @@
-# mfp-clientsdk-android-analyticsspec
+#Analytics API for Bluemix Mobile Services SDK
 
 [![Build Status](https://travis-ci.org/ibm-bluemix-mobile-services/mfp-clientsdk-android-analyticsspec.svg?branch=master)](https://travis-ci.org/ibm-bluemix-mobile-services/mfp-clientsdk-android-analyticsspec)
 [![Build Status](https://travis-ci.org/ibm-bluemix-mobile-services/mfp-clientsdk-android-analyticsspec.svg?branch=development)](https://travis-ci.org/ibm-bluemix-mobile-services/mfp-clientsdk-android-analyticsspec)
+
+#Change log:
+
+###1.0.1
+- Android Nougat officially supported; updated target SDK version to Android 24.
+
+###1.0.0
+- Initial release.
 
 Copyright 2016 IBM Corp.
 
