@@ -38,7 +38,17 @@ public class Analytics {
         Analytics.analyticsDelegate = analyticsDelegate;
     }
 
-    public static void init(Application application, String applicationName, String clientApiKey, DeviceEvent... contexts){
+    /**
+     * Initialize MFPAnalytics API.
+     * This must be called before any other MFPAnalytics.* methods
+     *
+     * @param application Android Application to instrument with MFPAnalytics.
+     * @param applicationName Application's common name.  Should be consistent across platforms.
+     * @param clientApiKey The Client API Key used to communicate with your MFPAnalytics service.
+     * @param hasUserContext If true, Analytics only records one user per device. If false, setting the user identity will keep a record of all users.
+     * @param contexts One or more context attributes MFPAnalytics will register event listeners for.
+     */
+    public static void init(Application application, String applicationName, String clientApiKey, boolean hasUserContext, DeviceEvent... contexts){
         Class analyticsClass;
 
         try {
@@ -47,60 +57,121 @@ public class Analytics {
             Class stringClass = String.class;
             Class deviceEventClass = DeviceEvent[].class;
 
-            Method initMethod = analyticsClass.getMethod("init", Application.class, stringClass, stringClass, deviceEventClass);
+            Method initMethod = analyticsClass.getMethod("init", Application.class, stringClass, stringClass, boolean.class, deviceEventClass);
 
-            initMethod.invoke(null, new Object[] {application, applicationName, clientApiKey, contexts});
+            initMethod.invoke(null, new Object[] {application, applicationName, clientApiKey, hasUserContext, contexts});
         } catch (Throwable e) {
             analyticsLogger.warn("Nothing will happen. In order to properly initialize the Analytics SDK and get all features, first include the Analytics SDK as a dependency for your application.", e);
         }
     }
 
+    /**
+     * Initialize MFPAnalytics API.
+     * This must be called before any other MFPAnalytics.* methods
+     *
+     * @deprecated  As of release 1.1.0, replaced by {@link #init(Application, String, String, boolean, Analytics.DeviceEvent...)}}
+     * please use the new init with user collection boolean. Using this method will
+     * only collect anonymous users and throw exceptions when trying to set user identity
+     *
+     *
+     * @param application Android Application to instrument with MFPAnalytics.
+     * @param applicationName Application's common name.  Should be consistent across platforms.
+     * @param clientApiKey The Client API Key used to communicate with your MFPAnalytics service.
+     * @param contexts One or more context attributes MFPAnalytics will register event listeners for.
+     */
+    @Deprecated
+    public static void init(Application application, String applicationName, String clientApiKey, DeviceEvent... contexts) {
+        init(application, applicationName, clientApiKey, false, contexts);
+    }
+
+    /**
+     * Enable persistent capture of analytics data.  Enable, and thus capture, is the default.
+     */
     public static void enable(){
         if(analyticsDelegate != null){
             analyticsDelegate.enable();
         }
     }
 
+    /**
+     * Disable persistent capture of analytics data.
+     */
     public static void disable(){
         if(analyticsDelegate != null){
             analyticsDelegate.disable();
         }
     }
 
+    /**
+     * Determine if the capture of analytics events is enabled.
+     * @return true if capture of analytics is enabled
+     */
     public static boolean isEnabled() {
         return analyticsDelegate != null && analyticsDelegate.isEnabled();
     }
 
+    /**
+     * Send the accumulated log data when the persistent log buffer exists and is not empty.  The data
+     * accumulates in the log buffer from the use of {@link Analytics} with capture
+     * (see {@link Analytics#enable()}) turned on.
+     *
+     */
     public static void send(){
         if(analyticsDelegate != null){
             analyticsDelegate.send();
         }
     }
 
+    /**
+     * See {@link Analytics#send()}
+     *
+     * @param responseListener RequestListener which specifies an onSuccess callback and an onFailure callback (see {@link ResponseListener})
+     */
     public static void send(Object responseListener){
         if(analyticsDelegate != null){
             analyticsDelegate.send(responseListener);
         }
     }
 
+    /**
+     * Log an analytics event.
+     *
+     * @param eventMetadata An object that contains the description for the event
+     */
     public static void log(JSONObject eventMetadata){
         if(analyticsDelegate != null){
             analyticsDelegate.log(eventMetadata);
         }
     }
 
+    /**
+     * Specify current application user.  This value will be hashed to ensure privacy.
+     * If your application does not have user context, then nothing will happen.
+     *
+     * @param username User User id for current app user.
+     */
     public static void setUserIdentity(String username){
         if(analyticsDelegate != null){
             analyticsDelegate.setUserIdentity(username);
         }
     }
 
+    /**
+     * @deprecated as of 1.1.0, will be removed in 2.0.0
+     */
+    @Deprecated
     public static void clearUserIdentity(){
         if(analyticsDelegate != null){
             analyticsDelegate.clearUserIdentity();
         }
     }
 
+    /**
+     * @deprecated As of 1.1.0, going to be removed as of 2.0
+     * since there is anonymous collection and named user collection
+     *
+     * Does not do anything now
+     */
     public static String getClientAPIKey(){
         if(analyticsDelegate != null){
             return analyticsDelegate.getClientAPIKey();
