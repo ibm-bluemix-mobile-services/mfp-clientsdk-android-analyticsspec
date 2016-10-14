@@ -27,8 +27,8 @@ public class Analytics {
     public enum DeviceEvent {
         NONE,
         ALL,
-        LIFECYCLE
-//        NETWORK //Note: Temporarily disabled
+        LIFECYCLE,
+        NETWORK
     }
 
     protected static AnalyticsDelegate analyticsDelegate = new NoOpAnalyticsDelegate();
@@ -39,10 +39,10 @@ public class Analytics {
     }
 
     /**
-     * Initialize MFPAnalytics API.
-     * This must be called before any other MFPAnalytics.* methods
+     * Initialize BMSAnalytics API.
+     * This must be called before any other methods in this class
      *
-     * @param application Android Application to instrument with MFPAnalytics.
+     * @param application Android Application to instrument with BMSAnalytics.
      * @param applicationName Application's common name.  Should be consistent across platforms.
      * @param clientApiKey The Client API Key used to communicate with your MFPAnalytics service.
      * @param hasUserContext If true, Analytics only records one user per device. If false, setting the user identity will keep a record of all users.
@@ -66,18 +66,18 @@ public class Analytics {
     }
 
     /**
-     * Initialize MFPAnalytics API.
-     * This must be called before any other MFPAnalytics.* methods
+     * Initialize BMSAnalytics API.
+     * This must be called before any other methods in this class
      *
      * @deprecated  As of release 1.1.0, replaced by {@link #init(Application, String, String, boolean, Analytics.DeviceEvent...)}}
      * please use the new init with user collection boolean. Using this method will
      * only collect anonymous users and throw exceptions when trying to set user identity
      *
      *
-     * @param application Android Application to instrument with MFPAnalytics.
+     * @param application Android Application to instrument with BMSAnalytics.
      * @param applicationName Application's common name.  Should be consistent across platforms.
-     * @param clientApiKey The Client API Key used to communicate with your MFPAnalytics service.
-     * @param contexts One or more context attributes MFPAnalytics will register event listeners for.
+     * @param clientApiKey The Client API Key used to communicate with your BMSAnalytics service.
+     * @param contexts One or more context attributes BMSAnalytics will register event listeners for.
      */
     @Deprecated
     public static void init(Application application, String applicationName, String clientApiKey, DeviceEvent... contexts) {
