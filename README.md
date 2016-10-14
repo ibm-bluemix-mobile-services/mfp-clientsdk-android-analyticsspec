@@ -4,8 +4,11 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.mobilefirstplatform.clientsdk.android/analyticsapi/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.mobilefirstplatform.clientsdk.android/analyticsapi)
 
 #Change log:
-###1.1.0:
--Added new initializer in order to avoid double counting anonymous users and named users as the same. Deprecated `Analytics.clearUserIdentity()`, will be removed in 2.x.
+###1.1.1
+- Added `NETWORK` to the `DeviceEvent` enum used in `Analytics.initialize`. When this is specified as one of the events to be recorded, it will record network transactions.
+
+###1.1.0
+- Added new initializer in order to avoid double counting anonymous users and named users as the same. Deprecated `Analytics.clearUserIdentity()`, will be removed in 2.x.
 
 ###1.0.1
 - Android Nougat officially supported; updated target SDK version to Android 24.
