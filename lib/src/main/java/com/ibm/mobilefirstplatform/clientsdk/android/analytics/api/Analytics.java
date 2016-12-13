@@ -70,7 +70,7 @@ public class Analytics {
      * Initialize BMSAnalytics API.
      * This must be called before any other methods in this class
      *
-     * @deprecated  As of release 1.1.0, replaced by {@link #init(Application, String, String, boolean, Analytics.DeviceEvent...)}}
+     * @deprecated  As of release 1.1.0, replaced by {@link #init(Application, String, String, boolean, boolean, Analytics.DeviceEvent...)}}
      * please use the new init with user collection boolean. Using this method will
      * only collect anonymous users and throw exceptions when trying to set user identity
      *
@@ -82,7 +82,7 @@ public class Analytics {
      */
     @Deprecated
     public static void init(Application application, String applicationName, String clientApiKey, DeviceEvent... contexts) {
-        init(application, applicationName, clientApiKey, false, contexts);
+        init(application, applicationName, clientApiKey, false, false, contexts);
     }
 
     /**
