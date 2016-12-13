@@ -46,9 +46,10 @@ public class Analytics {
      * @param applicationName Application's common name.  Should be consistent across platforms.
      * @param clientApiKey The Client API Key used to communicate with your MFPAnalytics service.
      * @param hasUserContext If true, Analytics only records one user per device. If false, setting the user identity will keep a record of all users.
+     * @param collectLocation If true, Analytics will begin to record location metadata
      * @param contexts One or more context attributes MFPAnalytics will register event listeners for.
      */
-    public static void init(Application application, String applicationName, String clientApiKey, boolean hasUserContext, DeviceEvent... contexts){
+    public static void init(Application application, String applicationName, String clientApiKey, boolean hasUserContext, boolean collectLocation, DeviceEvent... contexts){
         Class analyticsClass;
 
         try {
@@ -57,9 +58,9 @@ public class Analytics {
             Class stringClass = String.class;
             Class deviceEventClass = DeviceEvent[].class;
 
-            Method initMethod = analyticsClass.getMethod("init", Application.class, stringClass, stringClass, boolean.class, deviceEventClass);
+            Method initMethod = analyticsClass.getMethod("init", Application.class, stringClass, stringClass, boolean.class, boolean.class, deviceEventClass);
 
-            initMethod.invoke(null, new Object[] {application, applicationName, clientApiKey, hasUserContext, contexts});
+            initMethod.invoke(null, new Object[] {application, applicationName, clientApiKey, hasUserContext, collectLocation, contexts});
         } catch (Throwable e) {
             analyticsLogger.warn("Nothing will happen. In order to properly initialize the Analytics SDK and get all features, first include the Analytics SDK as a dependency for your application.", e);
         }
