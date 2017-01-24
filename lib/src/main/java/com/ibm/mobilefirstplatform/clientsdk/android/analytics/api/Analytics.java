@@ -46,9 +46,10 @@ public class Analytics {
      * @param applicationName Application's common name.  Should be consistent across platforms.
      * @param clientApiKey The Client API Key used to communicate with your MFPAnalytics service.
      * @param hasUserContext If true, Analytics only records one user per device. If false, setting the user identity will keep a record of all users.
+     * @param collectLocation If true, Analytics will begin to record location metadata
      * @param contexts One or more context attributes MFPAnalytics will register event listeners for.
      */
-    public static void init(Application application, String applicationName, String clientApiKey, boolean hasUserContext, DeviceEvent... contexts){
+    public static void init(Application application, String applicationName, String clientApiKey, boolean hasUserContext, boolean collectLocation, DeviceEvent... contexts){
         Class analyticsClass;
 
         try {
@@ -57,9 +58,9 @@ public class Analytics {
             Class stringClass = String.class;
             Class deviceEventClass = DeviceEvent[].class;
 
-            Method initMethod = analyticsClass.getMethod("init", Application.class, stringClass, stringClass, boolean.class, deviceEventClass);
+            Method initMethod = analyticsClass.getMethod("init", Application.class, stringClass, stringClass, boolean.class, boolean.class, deviceEventClass);
 
-            initMethod.invoke(null, new Object[] {application, applicationName, clientApiKey, hasUserContext, contexts});
+            initMethod.invoke(null, new Object[] {application, applicationName, clientApiKey, hasUserContext, collectLocation, contexts});
         } catch (Throwable e) {
             analyticsLogger.warn("Nothing will happen. In order to properly initialize the Analytics SDK and get all features, first include the Analytics SDK as a dependency for your application.", e);
         }
@@ -69,16 +70,30 @@ public class Analytics {
      * Initialize BMSAnalytics API.
      * This must be called before any other methods in this class
      *
-     * @deprecated  As of release 1.1.0, replaced by {@link #init(Application, String, String, boolean, Analytics.DeviceEvent...)}}
-     * please use the new init with user collection boolean. Using this method will
-     * only collect anonymous users and throw exceptions when trying to set user identity
-     *
-     *
      * @param application Android Application to instrument with BMSAnalytics.
      * @param applicationName Application's common name.  Should be consistent across platforms.
-     * @param clientApiKey The Client API Key used to communicate with your BMSAnalytics service.
-     * @param contexts One or more context attributes BMSAnalytics will register event listeners for.
+     * @param clientApiKey The Client API Key used to communicate with your MFPAnalytics service.
+     * @param hasUserContext If true, Analytics only records one user per device. If false, setting the user identity will keep a record of all users.
+     * @param contexts One or more context attributes MFPAnalytics will register event listeners for.
      */
+    public static void init(Application application, String applicationName, String clientApiKey, boolean hasUserContext, DeviceEvent... contexts) {
+        init(application, applicationName, clientApiKey, false, false, contexts);
+    }
+
+        /**
+         * Initialize BMSAnalytics API.
+         * This must be called before any other methods in this class
+         *
+         * @deprecated  As of release 1.1.0, replaced by {@link #init(Application, String, String, boolean, boolean, Analytics.DeviceEvent...)}}
+         * please use the new init with user collection boolean. Using this method will
+         * only collect anonymous users and throw exceptions when trying to set user identity
+         *
+         *
+         * @param application Android Application to instrument with BMSAnalytics.
+         * @param applicationName Application's common name.  Should be consistent across platforms.
+         * @param clientApiKey The Client API Key used to communicate with your BMSAnalytics service.
+         * @param contexts One or more context attributes BMSAnalytics will register event listeners for.
+         */
     @Deprecated
     public static void init(Application application, String applicationName, String clientApiKey, DeviceEvent... contexts) {
         init(application, applicationName, clientApiKey, false, contexts);

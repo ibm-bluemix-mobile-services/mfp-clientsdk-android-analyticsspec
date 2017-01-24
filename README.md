@@ -4,6 +4,9 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.mobilefirstplatform.clientsdk.android/analyticsapi/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.mobilefirstplatform.clientsdk.android/analyticsapi)
 
 #Change log:
+###1.2.0
+- Added new initializer for `Analytics` class that allows enabling collection of location data.
+
 ###1.1.1
 - Added `NETWORK` to the `DeviceEvent` enum used in `Analytics.initialize`. When this is specified as one of the events to be recorded, it will record network transactions.
 
