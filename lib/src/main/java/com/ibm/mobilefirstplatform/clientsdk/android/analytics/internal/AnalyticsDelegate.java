@@ -27,6 +27,7 @@ public interface AnalyticsDelegate {
 
     void setUserIdentity(String username);
     void clearUserIdentity();
+    void logLocation();
 
     String getClientAPIKey();
     String getAppName();
