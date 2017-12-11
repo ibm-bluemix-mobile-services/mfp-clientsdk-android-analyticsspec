@@ -57,6 +57,10 @@ public class NoOpAnalyticsDelegate implements AnalyticsDelegate{
     }
 
     @Override
+    public void logLocation() {
+    }
+
+    @Override
     public String getClientAPIKey() {
         return null;
     }
