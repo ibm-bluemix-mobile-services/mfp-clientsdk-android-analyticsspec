@@ -181,6 +181,12 @@ public class Analytics {
         }
     }
 
+    public static void logLocation(){
+        if(analyticsDelegate != null){
+            analyticsDelegate.logLocation();
+        }
+
+    }
     /**
      * @deprecated As of 1.1.0, going to be removed as of 2.0
      * since there is anonymous collection and named user collection
