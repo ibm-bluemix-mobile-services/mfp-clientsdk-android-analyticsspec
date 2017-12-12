@@ -58,6 +58,7 @@ public class NoOpAnalyticsDelegate implements AnalyticsDelegate{
 
     @Override
     public void logLocation() {
+        //no op
     }
 
     @Override
