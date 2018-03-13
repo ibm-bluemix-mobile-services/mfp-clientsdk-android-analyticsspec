@@ -70,4 +70,9 @@ public class NoOpAnalyticsDelegate implements AnalyticsDelegate{
     public String getAppName() {
         return null;
     }
+
+    @Override
+    public void triggerFeedbackMode() {
+        //no op
+    }
 }

@@ -210,4 +210,10 @@ public class Analytics {
             return null;
         }
     }
+
+   public static void triggerFeedbackMode(){
+        if(analyticsDelegate != null){
+            analyticsDelegate.triggerFeedbackMode();
+        }
+   }
 }

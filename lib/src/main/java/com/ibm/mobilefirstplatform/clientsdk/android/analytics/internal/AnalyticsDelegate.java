@@ -31,4 +31,5 @@ public interface AnalyticsDelegate {
 
     String getClientAPIKey();
     String getAppName();
+    void triggerFeedbackMode();
 }
