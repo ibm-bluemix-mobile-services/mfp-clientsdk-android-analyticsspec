@@ -5,6 +5,9 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.mobilefirstplatform.clientsdk.android/analyticsapi/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.mobilefirstplatform.clientsdk.android/analyticsapi)
 
 # Change log:
+### 1.2.1
+- Added new function triggerFeedbackMode which enables in app feedback feature
+
 ### 1.2.0
 - Added new initializer for `Analytics` class that allows enabling collection of location data.
 
